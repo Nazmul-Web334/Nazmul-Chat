@@ -427,6 +427,7 @@ button{
     <!-- MESSAGES -->
 
     <div id="messages"></div>
+    <div id="typingIndicator"></div>
 
 
 
@@ -522,8 +523,8 @@ const app =
     initializeApp(firebaseConfig);
 
 
-const db =
     getFirestore(app);
+const db = getFirestore(app)
 
 
 
@@ -544,6 +545,10 @@ let stopReceiverStatus = null;
 let heartbeatTimer = null;
 
 let receiverLastSeen = null;
+
+
+let typingTimer = null;
+let stopTypingStatus = null;
 
 
 
@@ -583,7 +588,8 @@ const messagesBox =
 
 const messageInput =
     document.getElementById("messageInput");
-
+const typingIndicator =
+    document.getElementById("typingIndicator");
 const sendButton =
     document.getElementById("sendButton");
 
@@ -921,6 +927,10 @@ function startChat(){
     loadMessages();
 
     loadReceiverStatus();
+<<<<<<< HEAD
+=======
+  loadTypingStatus();  
+>>>>>>> de72c87 (Fix Firestore rules and chat messaging)
 
 }
 
@@ -1123,8 +1133,138 @@ setInterval(
     5000
 
 );
+<<<<<<< HEAD
 
 
+=======
+/* =========================
+   TYPING STATUS
+========================= */
+
+async function setTyping(status){
+
+    if(!myMobile || !receiverMobile){
+        return;
+    }
+
+    try{
+
+        await setDoc(
+
+            doc(
+                db,
+                "typing",
+                getChatId()
+            ),
+
+            {
+
+                user: myMobile,
+
+                typing: status,
+
+                updatedAt:
+                    serverTimestamp()
+
+            },
+
+            {
+                merge:true
+            }
+
+        );
+
+    }catch(error){
+
+        console.error(
+            "Typing error:",
+            error
+        );
+
+    }
+
+}
+messageInput.addEventListener(
+    "input",
+    function(){
+
+        setTyping(true);
+        console.log("Typing started");
+
+        clearTimeout(typingTimer);
+
+        typingTimer = setTimeout(
+            function(){
+
+                setTyping(false);
+
+            },
+            1500
+        );
+
+    }
+);
+/* =========================
+   LOAD TYPING STATUS
+========================= */
+
+function loadTypingStatus(){
+
+    if(stopTypingStatus){
+
+        stopTypingStatus();
+
+        stopTypingStatus = null;
+
+    }
+
+    const typingRef = doc(
+        db,
+        "typing",
+        getChatId()
+    );
+
+    stopTypingStatus = onSnapshot(
+        typingRef,
+        function(snapshot){
+
+            if(!snapshot.exists()){
+
+                typingIndicator.innerText = "";
+
+                return;
+
+            }
+
+            const data = snapshot.data();
+
+            if(
+                data.typing === true &&
+                data.user !== myMobile
+            ){
+
+                typingIndicator.innerText =
+                    "✍️ লিখছে...";
+
+            }else{
+
+                typingIndicator.innerText = "";
+
+            }
+
+        },
+        function(error){
+
+            console.error(
+                "Typing status error:",
+                error
+            );
+
+        }
+    );
+
+}
+>>>>>>> de72c87 (Fix Firestore rules and chat messaging)
 
 /* =========================
    SEND MESSAGE
@@ -1182,7 +1322,11 @@ async function sendMessage(){
 
         );
 
+<<<<<<< HEAD
 
+=======
+        await setTyping(false);
+>>>>>>> de72c87 (Fix Firestore rules and chat messaging)
         messageInput.value =
             "";
 
