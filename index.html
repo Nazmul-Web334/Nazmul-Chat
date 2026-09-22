@@ -522,9 +522,8 @@ const firebaseConfig = {
 const app =
     initializeApp(firebaseConfig);
 
-
+const db =
     getFirestore(app);
-const db = getFirestore(app)
 
 
 
@@ -925,15 +924,10 @@ function startChat(){
 
 
     loadMessages();
-
     loadReceiverStatus();
-<<<<<<< HEAD
-=======
-  loadTypingStatus();  
->>>>>>> de72c87 (Fix Firestore rules and chat messaging)
+    loadTypingStatus();  
 
 }
-
 
 
 /* =========================
@@ -1133,10 +1127,7 @@ setInterval(
     5000
 
 );
-<<<<<<< HEAD
 
-
-=======
 /* =========================
    TYPING STATUS
 ========================= */
@@ -1264,7 +1255,7 @@ function loadTypingStatus(){
     );
 
 }
->>>>>>> de72c87 (Fix Firestore rules and chat messaging)
+
 
 /* =========================
    SEND MESSAGE
@@ -1322,11 +1313,9 @@ async function sendMessage(){
 
         );
 
-<<<<<<< HEAD
 
-=======
         await setTyping(false);
->>>>>>> de72c87 (Fix Firestore rules and chat messaging)
+
         messageInput.value =
             "";
 
