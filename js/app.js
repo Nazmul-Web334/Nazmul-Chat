@@ -22,43 +22,49 @@ export function getAppSections() {
 }
 
 export const NazmulChatApp = {
+
     name: "Nazmul Chat",
-    version: "1.0.0",
+    version: "1.1.0",
 
     init() {
-        console.log(
-            "Nazmul Chat app structure initialized."
-        );
 
-        console.log(
-            "Navigation items:",
-            getNavigationItems()
-        );
+        console.log("Nazmul Chat initialized.");
 
-        console.log(
-            "Navigation:",
-            Navigation
-        );
+        console.log("Navigation items:", getNavigationItems());
+
+        const sections = {
+            home: document.getElementById("homeSection"),
+            chat: document.getElementById("chatSection"),
+            calls: document.getElementById("callsSection"),
+            contacts: document.getElementById("contactsSection"),
+            settings: document.getElementById("settingsSection")
+        };
 
         setupNavigation((section) => {
-            console.log(
-                "Active app section:",
-                section
-            );
 
-            document.body.dataset.activeSection =
-                section;
-                document.getElementById("homeSection").style.display =
-    section === "home" ? "block" : "none";
+            Object.entries(sections).forEach(([name, element]) => {
 
-            document.querySelectorAll(
-                "#appNavigation [data-section]"
-            ).forEach((button) => {
-                button.classList.toggle(
-                    "active",
-                    button.dataset.section === section
-                );
+                if (element) {
+                    element.style.display =
+                        name === section ? "block" : "none";
+                }
+
             });
+
+            console.log("Active section:", section);
+
         });
+
+        // প্রথমে Home দেখাবে
+        Object.entries(sections).forEach(([name, element]) => {
+
+            if (element) {
+                element.style.display =
+                    name === "home" ? "block" : "none";
+            }
+
+        });
+
     }
+
 };
