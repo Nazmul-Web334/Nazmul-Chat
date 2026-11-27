@@ -2,73 +2,274 @@
 <html lang="bn">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+    <title>Nazmul Chat</title>
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>Nazmul Chat</title>
-<link rel="stylesheet" href="css/style.css">
-
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
 
 <body>
 
+    <!-- LOGIN -->
+    <div id="loginBox">
 
-<!-- LOGIN -->
+        <h2>💬 Nazmul Chat</h2>
 
-<div id="loginBox">
+        <input
+            id="nameInput"
+            type="text"
+            placeholder="আপনার নাম"
+        >
 
-    <h2>💬 Nazmul Chat</h2>
+        <input
+            id="mobileInput"
+            type="tel"
+            placeholder="আপনার মোবাইল নম্বর"
+        >
 
-    <input
-        id="nameInput"
-        type="text"
-        placeholder="আপনার নাম"
-    >
+        <button id="loginButton">
+            প্রবেশ করুন
+        </button>
 
-    <input
-        id="mobileInput"
-        type="tel"
-        placeholder="আপনার মোবাইল নম্বর"
-    >
-
-    <button id="loginButton">
-        প্রবেশ করুন
-    </button>
-
-</div>
+    </div>
 
 
+    <!-- CHAT APP -->
+    <div id="chatApp">
 
-<!-- CHAT APP -->
+        <!-- NAVIGATION -->
+        <nav id="appNavigation" aria-label="প্রধান মেনু">
 
-<div id="chatApp">
+            <button type="button" data-section="home">
+                🏠 Home
+            </button>
+
+            <button type="button" data-section="chat">
+                💬 Chat
+            </button>
+
+            <button type="button" data-section="calls">
+                📞 Calls
+            </button>
+
+            <button type="button" data-section="contacts">
+                👥 Contacts
+            </button>
+
+            <button type="button" data-section="settings">
+                ⚙️ Settings
+            </button>
+
+        </nav>
 
 
-    <!-- HEADER -->
+        <!-- HOME SECTION -->
+        <div id="homeSection" style="display:none; padding:20px;">
 
-    <div class="header">
+            <h2>🏠 Home</h2>
 
-        <div class="headerTop">
+            <p>স্বাগতম Nazmul Chat-এ!</p>
 
-            <div>
+            <p>
+                এখান থেকে অ্যাপের বিভিন্ন ফিচার ব্যবহার করতে পারবে।
+            </p>
 
-                <h3>💬 Nazmul Chat</h3>
+        </div>
 
-                <div id="myInfo"></div>
 
-                <div id="myStatus">
-                    🟢 Online
+        <!-- HEADER -->
+        <div class="header">
+
+            <div class="headerTop">
+
+                <div class="brand">
+
+                    <img
+                        src="./assets/logo.jpeg"
+                        alt="Nazmul Chat Logo"
+                    >
+
+                    <h3>Nazmul Chat</h3>
+
                 </div>
 
             </div>
 
+            <div id="myInfo"></div>
 
-            <button id="logoutButton">
-                Logout
+            <div id="myStatus">
+                🟢 Online
+            </div>
+
+        </div>
+
+
+        <!-- LOGOUT -->
+        <button id="logoutButton">
+            Logout
+        </button>
+
+
+        <!-- RECEIVER -->
+        <div class="receiverBox">
+
+            <input
+                id="receiverInput"
+                type="tel"
+                placeholder="যার সাথে চ্যাট করবেন তার মোবাইল নম্বর"
+            >
+
+            <button id="chatButton">
+                💬 Chat শুরু করুন
+            </button>
+
+        </div>
+
+
+        <!-- CALL BUTTONS -->
+        <div
+            id="callControls"
+            style="display:flex;gap:10px;padding:10px;background:#f8fafc;"
+        >
+
+            <button
+                id="audioCallButton"
+                style="flex:1;background:#16a34a;"
+            >
+                📞 Audio Call
+            </button>
+
+            <button
+                id="videoCallButton"
+                style="flex:1;background:#7c3aed;"
+            >
+                📹 Video Call
+            </button>
+
+        </div>
+
+
+        <!-- CALL STATUS -->
+        <div
+            id="callStatus"
+            style="display:none;padding:12px;text-align:center;background:#dbeafe;color:#1e40af;"
+        >
+            কলের অবস্থা এখানে দেখাবে
+        </div>
+
+
+        <!-- INCOMING CALL -->
+        <div
+            id="incomingCallBox"
+            style="
+                display:none;
+                padding:15px;
+                text-align:center;
+                background:#dcfce7;
+                border:1px solid #86efac;
+            "
+        >
+
+            <div
+                id="incomingCallText"
+                style="margin-bottom:12px;"
+            >
+                📞 আপনার কাছে কল এসেছে
+            </div>
+
+            <button
+                id="acceptCallButton"
+                style="background:#16a34a;margin:5px;"
+            >
+                ✅ কল রিসিভ
+            </button>
+
+            <button
+                id="rejectCallButton"
+                style="background:#dc2626;margin:5px;"
+            >
+                ❌ কল বাতিল
+            </button>
+
+        </div>
+
+
+        <!-- REMOTE VIDEO -->
+        <div
+            id="remoteVideoBox"
+            style="display:none;padding:10px;text-align:center;"
+        >
+
+            <video
+                id="remoteVideo"
+                autoplay
+                playsinline
+                style="width:100%;max-width:400px;border-radius:12px;"
+            ></video>
+
+        </div>
+
+
+        <!-- LOCAL VIDEO -->
+        <div
+            id="localVideoBox"
+            style="display:none;padding:10px;text-align:center;"
+        >
+
+            <video
+                id="localVideo"
+                autoplay
+                muted
+                playsinline
+                style="width:100%;max-width:200px;border-radius:12px;"
+            ></video>
+
+        </div>
+
+
+        <!-- END CALL -->
+        <button
+            id="endCallButton"
+            style="display:none;background:#dc2626;width:100%;"
+        >
+            ☎️ কল শেষ করুন
+        </button>
+
+
+        <!-- CHAT INFO -->
+        <div id="chatInfo">
+
+            আগে যার সাথে চ্যাট করবেন
+            তার নম্বর দিন
+
+            <div id="receiverStatus"></div>
+
+        </div>
+
+
+        <!-- MESSAGES -->
+        <div id="messages"></div>
+
+        <div id="typingIndicator"></div>
+
+
+        <!-- SEND MESSAGE -->
+        <div class="inputArea">
+
+            <input
+                id="messageInput"
+                type="text"
+                placeholder="মেসেজ লিখুন..."
+                disabled
+            >
+
+            <button
+                id="sendButton"
+                disabled
+            >
+                পাঠান
             </button>
 
         </div>
@@ -76,122 +277,14 @@
     </div>
 
 
+    <!-- JAVASCRIPT -->
+    <script type="module" src="js/script.js"></script>
 
-    <!-- RECEIVER -->
+    <script type="module">
+        import { NazmulChatApp } from './js/app.js';
 
-    <div class="receiverBox">
-
-        <input
-            id="receiverInput"
-            type="tel"
-            placeholder="যার সাথে চ্যাট করবেন তার মোবাইল নম্বর"
-        >
-
-        <button id="chatButton">
-            💬 Chat শুরু করুন
-        </button>
-
-    </div>
-
-<!-- CALL BUTTONS -->
-<div id="callControls" style="display:flex;gap:10px;padding:10px;background:#f8fafc;">
-    <button id="audioCallButton" style="flex:1;background:#16a34a;">
-        📞 Audio Call
-    </button>
-    <button id="videoCallButton" style="flex:1;background:#7c3aed;">
-        📹 Video Call
-    </button>
-</div>
-
-<!-- CALL STATUS -->
-<div id="callStatus" style="display:none;padding:12px;text-align:center;background:#dbeafe;color:#1e40af;">
-    কলের অবস্থা এখানে দেখাবে
-</div>
-<!-- INCOMING CALL -->
-<div id="incomingCallBox" style="
-    display:none;
-    padding:15px;
-    text-align:center;
-    background:#dcfce7;
-    border:1px solid #86efac;
-">
-    <div id="incomingCallText" style="margin-bottom:12px;">
-        📞 আপনার কাছে কল এসেছে
-    </div>
-
-    <button id="acceptCallButton"
-        style="background:#16a34a;margin:5px;">
-        ✅ কল রিসিভ
-    </button>
-
-    <button id="rejectCallButton"
-        style="background:#dc2626;margin:5px;">
-        ❌ কল বাতিল
-    </button>
-</div>
-<!-- REMOTE VIDEO -->
-<div id="remoteVideoBox" style="display:none;padding:10px;text-align:center;">
-    <video id="remoteVideo" autoplay playsinline style="width:100%;max-width:400px;border-radius:12px;"></video>
-</div>
-
-<!-- LOCAL VIDEO -->
-<div id="localVideoBox" style="display:none;padding:10px;text-align:center;">
-    <video id="localVideo" autoplay muted playsinline style="width:100%;max-width:200px;border-radius:12px;"></video>
-</div>
-
-<button id="endCallButton" style="display:none;background:#dc2626;width:100%;">
-    ☎️ কল শেষ করুন
-</button>
-
-    <!-- CHAT INFO -->
-
-    <div id="chatInfo">
-
-        আগে যার সাথে চ্যাট করবেন
-        তার নম্বর দিন
-
-        <div id="receiverStatus"></div>
-
-    </div>
-
-
-
-    <!-- MESSAGES -->
-
-    <div id="messages"></div>
-    <div id="typingIndicator"></div>
-
-
-
-    <!-- SEND -->
-
-    <div class="inputArea">
-
-        <input
-            id="messageInput"
-            type="text"
-            placeholder="মেসেজ লিখুন..."
-            disabled
-        >
-
-        <button
-            id="sendButton"
-            disabled
-        >
-            পাঠান
-        </button>
-
-    </div>
-
-
-</div>
-
-
-
-
-
-<script type="module" src="js/script.js"></script>
+        NazmulChatApp.init();
+    </script>
 
 </body>
-
 </html>
